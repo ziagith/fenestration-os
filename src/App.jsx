@@ -3,7 +3,8 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import { windowData } from './data';
-import { HardHat, FileText, LayoutDashboard, FileSpreadsheet, ShoppingCart, Factory, Boxes, Settings, Loader2 } from 'lucide-react'; 
+// Plus আইকনটি নতুন যুক্ত করা হয়েছে
+import { HardHat, FileText, LayoutDashboard, FileSpreadsheet, ShoppingCart, Factory, Boxes, Settings, Loader2, Plus } from 'lucide-react'; 
 
 function App() {
   const [rowData] = useState(windowData);
@@ -11,10 +12,10 @@ function App() {
   const [isSyncing, setIsSyncing] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
 
- const [columnDefs] = useState([
+  const [columnDefs] = useState([
     { field: 'schedule_id', headerName: 'ID', width: 90, pinned: 'left' },
-    { field: 'location', headerName: 'Location', minWidth: 200, flex: 1 }, 
-    { field: 'system_type', headerName: 'System Type', minWidth: 220, flex: 1 }, 
+    { field: 'location', headerName: 'Location', minWidth: 250, flex: 1 },
+    { field: 'system_type', headerName: 'System Type', minWidth: 280, flex: 1 }, 
     { field: 'manufacturer', headerName: 'Manufacturer', minWidth: 220, flex: 1 },
     { field: 'rough_opening', headerName: 'Opening Size', minWidth: 150 }, 
     { field: 'glazing_spec', headerName: 'Glazing Spec', minWidth: 200, flex: 1.5 },
@@ -112,6 +113,44 @@ function App() {
         </header>
 
         <main className="flex-1 p-3 md:p-6 flex flex-col w-full overflow-hidden">
+          
+          {/* NEW: Quick Add Configurator Panel */}
+          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-4">
+            <h3 className="text-sm font-semibold text-gray-700 mb-3">Quick Add to Schedule</h3>
+            <div className="flex flex-col md:flex-row gap-4 items-end">
+              
+              {/* Type Selector */}
+              <div className="flex-1 w-full">
+                <label className="text-xs text-gray-500 font-medium mb-1 block">System Type</label>
+                <select className="w-full bg-slate-50 border border-gray-300 text-sm p-2 rounded-md focus:ring-2 focus:ring-blue-500 outline-none cursor-pointer">
+                  <option>Multi-Slide Motorized (Western Window Systems)</option>
+                  <option>Thermally Broken Picture (Fleetwood)</option>
+                  <option>Heavy Commercial Pivot Door (Marvin Modern)</option>
+                </select>
+              </div>
+
+              {/* Measurement Inputs */}
+              <div className="w-full md:w-32">
+                <label className="text-xs text-gray-500 font-medium mb-1 block">Width (in)</label>
+                <input type="number" placeholder="e.g. 144" className="w-full bg-slate-50 border border-gray-300 text-sm p-2 rounded-md focus:ring-2 focus:ring-blue-500 outline-none" />
+              </div>
+              <div className="w-full md:w-32">
+                <label className="text-xs text-gray-500 font-medium mb-1 block">Height (in)</label>
+                <input type="number" placeholder="e.g. 96" className="w-full bg-slate-50 border border-gray-300 text-sm p-2 rounded-md focus:ring-2 focus:ring-blue-500 outline-none" />
+              </div>
+              <div className="w-full md:w-24">
+                <label className="text-xs text-gray-500 font-medium mb-1 block">Qty</label>
+                <input type="number" defaultValue="1" className="w-full bg-slate-50 border border-gray-300 text-sm p-2 rounded-md focus:ring-2 focus:ring-blue-500 outline-none" />
+              </div>
+
+              {/* Add Button */}
+              <button className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md text-sm font-medium transition-colors flex justify-center items-center gap-2 shadow-sm">
+                <Plus size={16} /> Add
+              </button>
+
+            </div>
+          </div>
+
           <div className="flex justify-between items-center mb-2">
             <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full md:hidden">
               Swipe to view 👉
@@ -121,7 +160,7 @@ function App() {
             </span>
           </div>
           
-          {/* MAGIC FIX: Strict Height of 500px is back! */}
+          {/* AG Grid Container */}
           <div className="w-full bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
             <div className="ag-theme-quartz w-full" style={{ height: '500px' }}>
               <AgGridReact
