@@ -44,22 +44,22 @@ function App() {
     setTimeout(() => setToast({ show: false, message: '', type: '' }), 4000);
   };
 
-  // বাটন ক্লিক এবং টোস্ট ইমপ্লিমেন্টেশন
+ // বাটন ক্লিক এবং টোস্ট ইমপ্লিমেন্টেশন (ইংরেজিতে আপডেট করা হলো)
   const handleSyncClick = () => {
     setIsSyncing(true);
-    showToast('Procore-এর সাথে ডেটা সিঙ্ক করা হচ্ছে...', 'info');
+    showToast('Syncing data with Procore...', 'info');
     setTimeout(() => {
       setIsSyncing(false);
-      showToast('Procore সিঙ্ক সফলভাবে সম্পন্ন হয়েছে! ✅', 'success');
+      showToast('Procore sync successful! ✅', 'success');
     }, 2500);
   };
 
   const handleExportClick = () => {
     setIsExporting(true);
-    showToast('Bluebeam-এ ফাইল এক্সপোর্ট করা হচ্ছে...', 'info');
+    showToast('Exporting schedule to Bluebeam...', 'info');
     setTimeout(() => {
       setIsExporting(false);
-      showToast('Bluebeam এক্সপোর্ট সফলভাবে সম্পন্ন হয়েছে! 📄', 'success');
+      showToast('Bluebeam export successful! 📄', 'success');
     }, 2500);
   };
 
