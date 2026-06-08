@@ -35,17 +35,17 @@ function App() {
     );
   };
 
-  // All 9 Columns Defined Correctly
+   // All 9 Columns Defined Correctly (Reordered)
   const [columnDefs] = useState([
     { field: 'schedule_id', headerName: 'ID', width: 90, pinned: 'left' },
+    { field: 'status', headerName: 'Status', minWidth: 240, cellRenderer: StatusCellRenderer }, // ID-এর পরেই Status চলে এলো
+    { field: 'procore_rfi', headerName: 'RFI', minWidth: 120 }, // তারপর RFI
     { field: 'location', headerName: 'Location', minWidth: 220 }, 
     { field: 'system_type', headerName: 'System Type', minWidth: 260 }, 
     { field: 'manufacturer', headerName: 'Manufacturer', minWidth: 260, tooltipField: 'manufacturer' }, 
     { field: 'rough_opening', headerName: 'Opening Size', minWidth: 160 }, 
     { field: 'glazing_spec', headerName: 'Glazing Spec', minWidth: 260 }, 
-    { field: 'structural_header', headerName: 'Header', minWidth: 180 }, 
-    { field: 'status', headerName: 'Status', minWidth: 240, cellRenderer: StatusCellRenderer },
-    { field: 'procore_rfi', headerName: 'RFI', minWidth: 120 }
+    { field: 'structural_header', headerName: 'Header', minWidth: 180 }
   ]);
 
   const defaultColDef = { sortable: true, filter: true, resizable: true };
