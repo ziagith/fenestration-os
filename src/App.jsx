@@ -4,6 +4,8 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import { windowData } from './data';
 import { HardHat, FileText, LayoutDashboard, FileSpreadsheet, ShoppingCart, Factory, Boxes, Settings, Loader2, Plus, CheckCircle, Info, CloudSync, CloudOff, X, AlertCircle, RefreshCw } from 'lucide-react'; 
+import WebhookTest from './WebhookTest'; // <-- এই যে এখানে ইমপোর্ট করা হয়েছে
+import OpenAITest from './OpenAITest';
 
 function App() {
   const [rowData] = useState(windowData);
@@ -12,7 +14,7 @@ function App() {
 
   // Integration & Add Modal States
   const [showSyncModal, setShowSyncModal] = useState(false);
-  const [showAddModal, setShowAddModal] = useState(false); // NEW: Quick Add Modal State
+  const [showAddModal, setShowAddModal] = useState(false); 
   const [syncStatus, setSyncStatus] = useState('idle');
   const [lastSynced, setLastSynced] = useState(null);
   const [simulateError, setSimulateError] = useState(false);
@@ -62,7 +64,6 @@ function App() {
         return;
       }
       setSyncStatus('pushing');
-      // Realistic 3-second loading state before success
       setTimeout(() => {
         setSyncStatus('success');
         setLastSynced(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
@@ -75,7 +76,6 @@ function App() {
   const handleExportClick = () => {
     setIsExporting(true);
     showToast('Exporting schedule to Bluebeam...', 'info');
-    // Realistic 3-second loading state before success
     setTimeout(() => {
       setIsExporting(false);
       showToast('Bluebeam export successful! 📄', 'success');
@@ -93,7 +93,7 @@ function App() {
         </div>
       )}
 
-      {/* QUICK ADD MODAL (Moved from main page) */}
+      {/* QUICK ADD MODAL */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center p-4">
           <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl p-6 relative">
@@ -201,7 +201,6 @@ function App() {
           
           <div className="flex flex-col items-end w-full xl:w-auto">
             <div className="flex flex-wrap gap-2 w-full justify-center xl:justify-end">
-              {/* NEW: Quick Add Button in Header */}
               <button onClick={() => setShowAddModal(true)} className="flex justify-center items-center gap-2 px-4 py-2 rounded-md transition-all font-medium shadow-sm text-sm bg-indigo-100 text-indigo-700 hover:bg-indigo-200">
                 <Plus size={16} /> Quick Add
               </button>
@@ -227,7 +226,6 @@ function App() {
             </span>
           </div>
 
-          {/* AG Grid Container - Added rowHeight & headerHeight for Density */}
           <div className="w-full bg-white border border-gray-200 rounded-lg shadow-sm">
             <div className="ag-theme-quartz w-full">
               <AgGridReact 
@@ -235,11 +233,16 @@ function App() {
                 columnDefs={columnDefs} 
                 defaultColDef={defaultColDef} 
                 domLayout="autoHeight"
-                rowHeight={32}      // Increased Density
-                headerHeight={40}   // Increased Density
+                rowHeight={32}
+                headerHeight={40}
               />
             </div>
           </div>
+          
+          {/* এই যে এখানে WebhookTest কম্পোনেন্টটি যোগ করা হয়েছে */}
+          <WebhookTest />
+          <OpenAITest />
+
         </main>
       </div>
     </div>
